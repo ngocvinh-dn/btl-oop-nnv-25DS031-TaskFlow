@@ -6,5 +6,9 @@ module application {
     requires javafx.graphics;
     requires java.prefs;
 
+    opens application.controllers to javafx.fxml;
+    exports application.controllers;
 
+    opens application to javafx.fxml;
+    exports application;
 }
