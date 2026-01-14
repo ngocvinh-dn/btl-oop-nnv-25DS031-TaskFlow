@@ -7,6 +7,7 @@ import application.utils.DatabaseConnection;
 import javafx.scene.chart.PieChart;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,7 +150,19 @@ public class TaskDAOImpl implements TaskDAO {
 
     @Override
     public boolean toggleTaskStatus(int id, boolean isCompleted, int userId) {
-        return false;
+        String query = "UPDATE tasks SET is_completed = ? WHERE id = ? AND user_id = ?";
+        try (Connection conn =DatabaseConnection.getConnection()) {
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setBoolean(1, isCompleted);
+            pstmt.setTimestamp(2, isCompleted ? Timestamp.valueOf(LocalDateTime.now()) : null);
+            pstmt.setInt(3, id);
+            pstmt.setInt(4, userId);
+            return pstmt.executeUpdate()>0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.err.println("ERROR: Method toggleTaskStatus failed!!!");
+            return false;
+        }
     }
 
     //=== PHUONG THUC BO TRO ===
