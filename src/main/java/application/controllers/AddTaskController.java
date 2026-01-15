@@ -4,6 +4,7 @@ import application.models.Task;
 import application.models.Label;
 import application.services.TaskService;
 import application.utils.DatabaseConnection;
+import application.utils.UserSession;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -100,7 +101,7 @@ public class AddTaskController implements Initializable {
            }
         });
 
-        loadLabelsFromDB();
+        loadLabelsFromDB(UserSession.getInstance().getUser().getId());
 
         btnSave.setOnAction(event -> saveTask());
         btnCancel.setOnAction(event -> closeWindow());
@@ -132,10 +133,11 @@ public class AddTaskController implements Initializable {
         }
     }
 
-    private void loadLabelsFromDB() {
-        String query = "SELECT * FROM labels";
+    private void loadLabelsFromDB(int userId) {
+        String query = "SELECT * FROM labels WHERE user_id=?";
         try(Connection conn = DatabaseConnection.getConnection()){
             PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, userId);
             ResultSet rs = pstmt.executeQuery();
 
             while(rs.next()) {

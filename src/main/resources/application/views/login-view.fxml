@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.LoginController">
+<StackPane styleClass="root-pane-text" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.LoginController">
 
     <VBox alignment="TOP_LEFT" maxHeight="600" maxWidth="403.0" prefHeight="518.0" prefWidth="400.0" spacing="10" styleClass="login-card">
 

@@ -26,6 +26,8 @@ public class TaskDialogOpener {
             FXMLLoader loader = new FXMLLoader(TaskDialogOpener.class.getResource("/application/views/add-task-view.fxml"));
             Parent root = loader.load();
 
+            root.setStyle("-fx-background-color: #FFFFFF;");
+
             AddTaskController controller = loader.getController();
             String title = "New Task";
 

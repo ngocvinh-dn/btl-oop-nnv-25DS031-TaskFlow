@@ -1,5 +1,11 @@
 /* === ROOT === */
 .root {
+    -fx-font-family: 'Segoe UI', 'Open Sans', sans-serif;
+}
+
+/* === LOGIN & REGISTER CARD === */
+
+.root-pane-text {
     -fx-background-color: linear-gradient(to bottom, #c0eefd, #E1F5FE, #FFFFFF);
     -fx-background-image: url("../images/background-with-logo.png");
     -fx-background-size: cover;
@@ -7,8 +13,6 @@
     -fx-background-repeat: no-repeat;
     -fx-font-family: "Segoe UI", sans-serif;
 }
-
-/* === LOGIN & REGISTER CARD === */
 .login-card {
     -fx-background-color: linear-gradient(to bottom, #ccffff, #ebf1f8, #ffffff);
     -fx-background-radius: 25;

@@ -99,7 +99,7 @@ public class TaskCard extends HBox {
         Button btnEdit = new Button("✎");
         btnEdit.getStyleClass().add("task-edit-btn");
         btnEdit.setOnAction(e -> {
-            TaskDialogOpener.openTaskDialog(this.getScene().getWindow(), task, task.getDueDate().toLocalDate(), onRefreshRequest);
+            TaskDialogOpener.openTaskDialog(this.getScene().getWindow(), task, onRefreshRequest);
         });
 
         Button btnDelete = new Button("✕");
