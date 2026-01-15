@@ -50,7 +50,7 @@ public class LabelController implements Initializable {
         List<Label> labels = labelService.getAllLabels();
         for(Label label : labels){
             LabelCard card = new LabelCard(label, this::loadLabels);
-            card.setPrefHeight(250);
+            card.setPrefWidth(250);
             labelsFlowPane.getChildren().add(card);
         }
     }

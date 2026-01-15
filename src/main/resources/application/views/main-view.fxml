@@ -69,7 +69,7 @@
                         <Separator prefWidth="200.0" />
                         <VBox alignment="BOTTOM_LEFT" spacing="10" style="-fx-padding: 0 20 0 20;">
                             <HBox alignment="CENTER_LEFT" spacing="10">
-                                <Region maxHeight="20.0" maxWidth="18.0" styleClass="icon-user" />
+                                <Region maxHeight="20.0" maxWidth="18.0" styleClass="icon-user" style="-fx-opacity: 1" />
                                 <Label fx:id="usernameLabel" style="-fx-font-weight: bold; -fx-font-size: 14" text="Username">
                                     <HBox.margin>
                                         <Insets />
