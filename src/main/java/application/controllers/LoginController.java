@@ -67,24 +67,41 @@ public class LoginController {
         String username = usernameField.getText();
         String password = isPasswordVisible ? passwordVisibleField.getText() : passwordField.getText();
 
-        if(username.isEmpty() || password.isEmpty()){
+        if (username.isEmpty() || password.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Form Error", "Please enter both Username and Password!");
             return;
         }
 
         User user = userDAO.login(username, password);
 
-        if(user != null) {
+        if (user != null) {
             UserSession.createSession(user);
-            if(chkRemember.isSelected() && chkRemember !=null) {
+            if (chkRemember != null && chkRemember.isSelected()) {
                 String hashedPassword = SecurityUtils.hashPassword(password);
                 CredentialStore.saveCredentials(username, hashedPassword);
             } else {
                 CredentialStore.clearCredentials();
             }
         }
-        showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome to Task FLow !");
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/views/main-view.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+
+            stage.centerOnScreen();
+            stage.setResizable(true);
+            stage.setTitle("Task Flow");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "System Error", "Could not load Main View: " + e.getMessage());
+        }
     }
 
     @FXML
@@ -106,7 +123,7 @@ public class LoginController {
         }
     }
 
-    public void showAlert(Alert.AlertType type, String title, String content) {
+    private void showAlert(Alert.AlertType type, String title, String content) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setContentText(content);

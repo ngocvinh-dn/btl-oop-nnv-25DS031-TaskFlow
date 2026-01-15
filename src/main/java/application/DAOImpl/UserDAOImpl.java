@@ -14,13 +14,18 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User login(String username, String password) {
-        String query = "SELECT * FROM users WHERE username = ? AND password = ?";
         String hashedPassword = SecurityUtils.hashPassword(password);
+        return loginWithHash(username, hashedPassword);
+    }
+
+    @Override
+    public User loginWithHash(String username, String password) {
+        String query = "SELECT * FROM users WHERE username = ? AND password = ?";
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(query);
 
             pstmt.setString(1, username);
-            pstmt.setString(2, hashedPassword);
+            pstmt.setString(2, password);
 
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()) {

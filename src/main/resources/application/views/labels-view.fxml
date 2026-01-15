@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane styleClass="main-content-area" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.LabelController">
+    <children>
+        <VBox styleClass="content-card" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+            <children>
+
+                <HBox alignment="CENTER_LEFT" stylesheets="@../styles/styles.css">
+                    <children>
+                        <Label styleClass="header-title" text="Labels Management">
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                            <padding>
+                                <Insets top="18.0" />
+                            </padding></Label>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="35.0" />
+                    </padding>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </HBox>
+
+                <HBox alignment="CENTER" spacing="15.0" style="-fx-background-color: #FAFAFA; -fx-background-radius: 10;">
+                    <padding>
+                        <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+                    </padding>
+                    <children>
+                        <Label style="-fx-font-weight: bold; -fx-text-fill: #555; -fx-font-size: 18" text="New Label:" />
+
+                        <TextField fx:id="txtLabelName" prefWidth="250.0" promptText="Label Name..." styleClass="text-field" />
+
+                        <ColorPicker fx:id="colorPicker" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 5;">
+                            <value>
+                                <Color red="0.0" green="0.76" blue="0.88" />
+                            </value>
+                        </ColorPicker>
+
+                        <Button fx:id="btnAddLabel" mnemonicParsing="false" styleClass="btn-primary" text="Add Label" />
+                    </children>
+                    <VBox.margin>
+                        <Insets left="35.0" right="35.0" top="20.0" />
+                    </VBox.margin>
+                </HBox>
+
+                <Label style="-fx-font-size: 14px; -fx-text-fill: #888; -fx-font-weight: bold;" text="Existing Labels">
+                    <VBox.margin>
+                        <Insets left="35.0" top="20.0" />
+                    </VBox.margin>
+                </Label>
+
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="task-scroll-pane" VBox.vgrow="ALWAYS">
+                    <content>
+                        <FlowPane fx:id="labelsFlowPane" hgap="15.0" vgap="15.0">
+                            <padding>
+                                <Insets bottom="20.0" left="35.0" right="35.0" top="10.0" />
+                            </padding>
+                        </FlowPane>
+                    </content>
+                </ScrollPane>
+
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

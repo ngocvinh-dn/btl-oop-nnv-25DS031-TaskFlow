@@ -23,7 +23,7 @@
 
             <StackPane alignment="CENTER_LEFT">
                 <TextField fx:id="usernameField" promptText="Username" styleClass="input-field" />
-                <Region maxHeight="20.0" maxWidth="18.0" styleClass="icon-user">
+                <Region mouseTransparent="true" maxHeight="20.0" maxWidth="18.0" styleClass="icon-user"  >
                <StackPane.margin>
                   <Insets left="15.0" />
                </StackPane.margin></Region>
@@ -33,7 +33,7 @@
                 <TextField fx:id="passwordVisibleField" managed="false" promptText="Password" styleClass="input-field" visible="false" />
                 <PasswordField fx:id="passwordField" promptText="Password" styleClass="input-field" />
 
-                <Region maxHeight="20.0" maxWidth="18.0" styleClass="icon-lock">
+                <Region maxHeight="20.0" maxWidth="18.0" styleClass="icon-lock" mouseTransparent="true">
                <StackPane.margin>
                   <Insets left="15.0" />
                </StackPane.margin></Region>

@@ -8,18 +8,16 @@ import application.utils.UserSession;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TaskService {
 
     private final TaskDAO taskDAO;
 
-    public TaskService(TaskDAO taskDAO) {
+    public TaskService() {
         this.taskDAO = new TaskDAOImpl();
     }
 
@@ -102,9 +100,8 @@ public class TaskService {
 
     private boolean filterBySearch(Task task, String keyword) {
         if(keyword == null || keyword.trim().isEmpty()) return true;
-        String lowerKeyword = keyword.toLowerCase();
-        return task.getTitle().toLowerCase().contains(lowerKeyword) ||
-                (task.getDescription() != null && task.getDescription().toLowerCase().contains(lowerKeyword));
+        return task.getTitle().toLowerCase().contains(keyword.toLowerCase()) ||
+                (task.getDescription() != null && task.getDescription().toLowerCase().contains(keyword.toLowerCase()));
     }
 
     private Comparator<Task> getComparator(String sortOrder) {
@@ -127,7 +124,7 @@ public class TaskService {
 
     }
 
-    public boolean addRecurrentTask(Task baseTask, String frequency, LocalDate untilDate, List<DayOfWeek> specificDays) {
+    public boolean addRecurrentTasks(Task baseTask, String frequency, LocalDate untilDate, List<DayOfWeek> specificDays) {
         if(baseTask == null) return false;
 
         LocalDateTime current = baseTask.getDueDate();
@@ -154,6 +151,25 @@ public class TaskService {
         }
 
         return success;
+    }
+
+    public List<Task> getTasksForSpecificDate(LocalDate date, String statusFilter, String priorityFilter, String sortOrder){
+        List<Task> allTasks = taskDAO.getAllTasks(getCurrentUserId());
+        return allTasks.stream()
+                .filter(t -> t.getDueDate() !=null &&t.getDueDate().toLocalDate().equals(date))
+                .filter(task -> filterByStatus(task, statusFilter))
+                .filter(task -> filterByPriority(task, priorityFilter))
+                .sorted(getComparator(sortOrder))
+                .collect(Collectors.toList());
+    }
+
+    public Map<LocalDate, Long> getTaskCountsForMonth(YearMonth yearMonth) {
+        List<Task> allTasks = taskDAO.getAllTasks(getCurrentUserId());
+        return allTasks.stream()
+                .filter(t -> t.getDueDate() != null &&
+                        !t.isCompleted() &&
+                        YearMonth.from(t.getDueDate()).equals(yearMonth))
+                .collect(Collectors.groupingBy(t -> t.getDueDate().toLocalDate(), Collectors.counting()));
     }
 
     private boolean createAndSaveTask(Task baseTask, LocalDateTime date) {
