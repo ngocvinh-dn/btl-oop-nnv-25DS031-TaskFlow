@@ -113,7 +113,7 @@ public class AddTaskController implements Initializable {
         if(start==null) start = LocalDate.now();
         LocalDate endDate = null;
         if("Daily".equals(freq)) endDate = start.plusWeeks(1);
-        else if("Weekly".equals(freq)) endDate = start.plusWeeks(1);
+        else if("Weekly".equals(freq)) endDate = start.plusWeeks(4);
         else if("Monthly".equals(freq)) endDate = start.plusMonths(6);
         if(endDate!=null) dpRecurrenceEnd.setValue(endDate);
     }
