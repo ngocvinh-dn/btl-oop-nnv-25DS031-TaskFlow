@@ -132,10 +132,10 @@ public class TaskDAOImpl implements TaskDAO {
                 try(PreparedStatement insPstmt = conn.prepareStatement(query3)) {
                     for(Label label : task.getLabels()) {
                         insPstmt.setInt(1, task.getId());
-                        insPstmt.setInt(2, task.getUserId());
+                        insPstmt.setInt(2, label.getId());
                         insPstmt.addBatch();
                     }
-                    insPstmt.executeUpdate();
+                    insPstmt.executeBatch();
                 }
             }
 
