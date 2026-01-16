@@ -203,7 +203,7 @@ public class AddTaskController implements Initializable {
 
         boolean success;
 
-        if (currentTask == null && chkRecurrence.isSelected() && taskToSave.getDueDate() != null) {
+        if (currentTask == null &&chkRecurrence.isSelected()&&taskToSave.getDueDate() != null) {
             String freq = cbRecurrence.getValue();
             LocalDate until = dpRecurrenceEnd.getValue();
 
