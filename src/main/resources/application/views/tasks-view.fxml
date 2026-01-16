@@ -86,7 +86,7 @@
 
                 <StackPane VBox.vgrow="ALWAYS">
                     <children>
-                        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" styleClass="task-scroll-pane" visible="false">
+                        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane" visible="false">
                             <content>
                                 <VBox fx:id="tasksContainer" spacing="12.0">
                                     <padding>

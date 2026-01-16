@@ -62,7 +62,7 @@ public class TaskDAOImpl implements TaskDAO {
                 if(task.getLabels() != null && !task.getLabels().isEmpty()) {
                     try( PreparedStatement labelStmt =conn.prepareStatement(query2)) {
                        for(Label label : task.getLabels()) {
-                           labelStmt.setInt(1, label.getId());
+                           labelStmt.setInt(1, task.getId());
                            labelStmt.setInt(2, label.getId());
                            labelStmt.addBatch();
                        }
@@ -89,7 +89,7 @@ public class TaskDAOImpl implements TaskDAO {
 
     @Override
     public boolean deleteTask(int id, int userId) {
-        String query = "DELETE FROM task s WHERE id = ? AND user_id = ?";
+        String query = "DELETE FROM tasks s WHERE id = ? AND user_id = ?";
         try (Connection conn = DatabaseConnection.getConnection()) {
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, id);
@@ -150,14 +150,14 @@ public class TaskDAOImpl implements TaskDAO {
 
     @Override
     public boolean toggleTaskStatus(int id, boolean isCompleted, int userId) {
-        String query = "UPDATE tasks SET is_completed = ? WHERE id = ? AND user_id = ?";
-        try (Connection conn =DatabaseConnection.getConnection()) {
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            pstmt.setBoolean(1, isCompleted);
-            pstmt.setTimestamp(2, isCompleted ? Timestamp.valueOf(LocalDateTime.now()) : null);
-            pstmt.setInt(3, id);
-            pstmt.setInt(4, userId);
-            return pstmt.executeUpdate()>0;
+        String sql = "UPDATE tasks SET is_completed = ?, completed_at = ? WHERE id = ? AND user_id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setBoolean(1, isCompleted);
+            stmt.setTimestamp(2, isCompleted ? Timestamp.valueOf(LocalDateTime.now()) : null);
+            stmt.setInt(3, id);
+            stmt.setInt(4, userId);
+            return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             System.err.println("ERROR: Method toggleTaskStatus failed!!!");
@@ -185,12 +185,15 @@ public class TaskDAOImpl implements TaskDAO {
         Timestamp updatedAtTs = rs.getTimestamp("updated_at");
         if(updatedAtTs!=null) task.setUpdatedAt(updatedAtTs.toLocalDateTime());
 
+        Timestamp compTs = rs.getTimestamp("completed_at");
+        if (compTs != null) task.setCompletedAt(compTs.toLocalDateTime());
+
         return task;
     }
 
     private List<Label> getLabelsForTask(int taskId, Connection conn) throws SQLException {
         List<Label> labels=new ArrayList<>();
-        String query = "SELECT L.* FROM labels L JOIN tasks T ON L.id = T.label_id WHERE T.task_id = ?";
+        String query = "SELECT L.* FROM labels L JOIN task_labels TL ON L.id = TL.label_id WHERE TL.task_id = ?";
         try(PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, taskId);
             ResultSet rs = pstmt.executeQuery();

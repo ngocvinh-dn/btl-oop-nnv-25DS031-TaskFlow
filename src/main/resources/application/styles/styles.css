@@ -408,12 +408,37 @@
     -fx-text-fill: white;
 }
 
-.task-scroll-pane {
+.scroll-pane {
     -fx-background-color: transparent;
-    -fx-background: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
 }
-.task-scroll-pane > .viewport {
+
+.scroll-pane .viewport {
     -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #D1D1D1;
+    -fx-background-radius: 10px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #A0A0A0;
+}
+
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-shape: "";
+    -fx-padding: 0;
 }
 
 .search-field {
@@ -595,6 +620,30 @@
     -fx-font-weight: bold;
 }
 
+.form-label:focused {
+    -fx-border-color: #00C2E0;
+    -fx-border-width: 1px;
+}
+
+.text-area {
+    -fx-background-color: white;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-padding: 5;
+    -fx-prompt-text-fill: #A0A0A0;
+}
+
+.text-area:focused {
+    -fx-border-color: #00C2E0;
+    -fx-border-width: 1px;
+}
+
+.text-area .content {
+    -fx-background-color: transparent;
+}
+
 .text-field, .text-area, .date-picker .text-field {
     -fx-background-color: #F9F9F9;
     -fx-border-color: #E0E0E0;
@@ -669,38 +718,56 @@
     -fx-background-radius: 50%;
 }
 
-.time-spinner {
-    -fx-background-color: #F9F9F9;
+.date-picker, .combo-box, .spinner {
+    -fx-background-color: white;
     -fx-border-color: #E0E0E0;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-min-height: 35px;
+}
+
+.date-picker:focused, .combo-box:focused, .spinner:focused {
+    -fx-border-color: #00C2E0;
+}
+
+.date-picker .arrow-button, .combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.date-picker .button {
+    -fx-background-color: transparent;
+}
+
+.spinner .text-field {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-alignment: CENTER;
+}
+
+.recurrence-pane {
+    -fx-padding: 10;
+    -fx-background-color: #F9F9F9;
+    -fx-background-radius: 5;
+    -fx-border-color: #ECECEC;
     -fx-border-radius: 5;
 }
 
-.time-spinner:focused {
-    -fx-border-color: #00C2E0;
-    -fx-background-color: white;
-}
-
-.time-spinner .text-field {
-    -fx-background-color: transparent;
-    -fx-alignment: CENTER;
-    -fx-font-family: 'Segoe UI', sans-serif;
-    -fx-font-size: 13px;
+.recurrence-checkbox {
     -fx-font-weight: bold;
+    -fx-text-fill: #444444;
 }
 
-.time-spinner .increment-arrow-button,
-.time-spinner .decrement-arrow-button {
-    -fx-background-color: transparent;
-    -fx-padding: 2 4 2 4;
+.day-checkbox {
+    -fx-font-size: 11px;
+    -fx-cursor: hand;
 }
 
-.time-spinner .increment-arrow,
-.time-spinner .decrement-arrow {
-    -fx-background-color: #999;
+.day-checkbox .box {
+    -fx-background-radius: 10px;
+    -fx-padding: 4px;
 }
-
-.time-spinner:hover .increment-arrow,
-.time-spinner:hover .decrement-arrow {
+.day-checkbox:selected .box {
     -fx-background-color: #00C2E0;
 }
 

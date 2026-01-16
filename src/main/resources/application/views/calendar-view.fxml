@@ -136,24 +136,26 @@
                     </opaqueInsets>
                 </VBox>
 
-                <VBox fx:id="tasksContainer" layoutX="14.0" layoutY="14.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
-                </VBox>
-
-                <VBox fx:id="emptyStateBox" alignment="CENTER" layoutX="148.0" layoutY="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
+                <StackPane VBox.vgrow="ALWAYS" layoutX="14.0" layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="85.0">
                     <children>
-                        <Circle fill="TRANSPARENT" radius="30.0" stroke="#757575" strokeType="INSIDE" strokeWidth="4.0" />
-                        <Label text="No tasks found today!" textFill="#555555">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                        <Label text="Click + to add one..." textFill="#777777">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
+                        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane" visible="false">
+                            <content>
+                                <VBox fx:id="tasksContainer" spacing="12.0"/>
+                            </content>
+                        </ScrollPane>
+
+                        <VBox fx:id="emptyStateContainer" alignment="CENTER" prefHeight="377.0" prefWidth="656.0" spacing="5.0">
+                            <children>
+                                <Region fx:id="emptyImageRegion" prefHeight="80.0" prefWidth="659.0" styleClass="empty-icon">
+                                    <VBox.margin>
+                                        <Insets bottom="5.0" />
+                                    </VBox.margin></Region>
+                                <Label prefHeight="5.0" prefWidth="135.0" styleClass="empty-state-title" text="No tasks found!" />
+                                <Label styleClass="empty-state-subtitle" text="Click + to add a new task" />
+                            </children>
+                        </VBox>
                     </children>
-                </VBox>
+                </StackPane>
 
                 <Button fx:id="btnAddToday" mnemonicParsing="false" styleClass="fab-btn" text="+" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0" />
             </children>

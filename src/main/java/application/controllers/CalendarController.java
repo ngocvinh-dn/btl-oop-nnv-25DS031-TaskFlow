@@ -28,13 +28,15 @@ public class CalendarController implements Initializable{
 
     @FXML private Label lblSelectedDate;
     @FXML private VBox tasksContainer;
-    @FXML private VBox emptyStateBox;
+    @FXML private VBox emptyStateContainer;
     @FXML private Button btnAddToday;
 
     @FXML private ToggleGroup filterGroup;
     @FXML private ComboBox<String> cbFilterPriority;
     @FXML private ComboBox<String> cbSort;
     @FXML private Label lblActiveCount, lblCompletedCount;
+    @FXML private ScrollPane scrollPane;
+
 
     private YearMonth currentYearMonth;
     private LocalDate selectedDate;
@@ -109,15 +111,19 @@ public class CalendarController implements Initializable{
         String sortOrder =cbSort.getValue();
 
         List<Task> filteredTasks = taskService.getTasksForSpecificDate(date, currentStatusFilter, priorityFilter, sortOrder);
+        long active = filteredTasks.stream().filter(t -> !t.isCompleted()).count();
+        long completed = filteredTasks.stream().filter(t -> t.isCompleted()).count();
+        lblActiveCount.setText(active + " active");
+        lblCompletedCount.setText(completed + " completed");
 
         tasksContainer.getChildren().clear();
 
         if (filteredTasks.isEmpty()) {
-            emptyStateBox.setVisible(true);
-            tasksContainer.setVisible(false);
+            emptyStateContainer.setVisible(true);
+            scrollPane.setVisible(false);
         } else {
-            emptyStateBox.setVisible(false);
-            tasksContainer.setVisible(true);
+            emptyStateContainer.setVisible(false);
+            scrollPane.setVisible(true);
             for (Task task : filteredTasks) {
                 TaskCard card = new TaskCard(task, () -> {
                     updateCalendar();

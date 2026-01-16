@@ -40,52 +40,55 @@ public class TasksController implements Initializable {
         cbSort.getSelectionModel().selectFirst();
 
         setupEventHandlers();
-
+        loadTasks();
     }
 
     private void setupEventHandlers(){
-        timeGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue!=null){
-                currentTimeFilter = ((ToggleButton)newValue).getText();
+        timeGroup.selectedToggleProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                currentTimeFilter = ((ToggleButton)newVal).getText();
                 loadTasks();
             }
         });
 
-        filterGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue!=null){
-                currentStatusFilter = ((ToggleButton)newValue).getText();
+        filterGroup.selectedToggleProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                currentStatusFilter = ((ToggleButton)newVal).getText();
                 loadTasks();
             }
         });
 
-        txtSearch.textProperty().addListener((observable, oldValue, newValue) -> loadTasks());
+        txtSearch.textProperty().addListener((obs, oldVal, newVal) -> loadTasks());
 
-        cbFilterPriority.valueProperty().addListener((observable, oldValue, newValue) -> loadTasks());
+        cbFilterPriority.valueProperty().addListener((obs, oldVal, newVal) -> loadTasks());
 
-        cbSort.valueProperty().addListener((observable, oldValue, newValue) -> loadTasks());
+        cbSort.valueProperty().addListener((obs, oldVal, newVal) -> loadTasks());
 
-        btnAdd.setOnAction(event -> TaskDialogOpener.openTaskDialog(btnAdd.getScene().getWindow(), this::loadTasks));
+        btnAdd.setOnAction(e -> TaskDialogOpener.openTaskDialog(btnAdd.getScene().getWindow(), this::loadTasks));
     }
 
-    private void loadTasks(){
+    public void loadTasks() {
         String keyword = txtSearch.getText();
         String priority = cbFilterPriority.getValue();
         String sort = cbSort.getValue();
 
-        List<Task> tasks=taskService.getFilteredTasks(keyword, currentTimeFilter, currentStatusFilter, priority, sort);
-        long active=tasks.stream().filter(t-> !t.isCompleted()).count();
-        long completed=tasks.stream().filter(t-> t.isCompleted()).count();
-        lblActiveCount.setText(active+" active");
-        lblCompletedCount.setText(completed+" completed");
+        List<Task> tasks = taskService.getFilteredTasks(keyword, currentTimeFilter, currentStatusFilter, priority, sort);
+        long active = tasks.stream().filter(t -> !t.isCompleted()).count();
+        long completed = tasks.stream().filter(t -> t.isCompleted()).count();
+        lblActiveCount.setText(active + " active");
+        lblCompletedCount.setText(completed + " completed");
+        renderTaskCards(tasks);
+    }
 
+    private void renderTaskCards(List<Task> tasks) {
         tasksContainer.getChildren().clear();
-        if(tasks.isEmpty()){
+        if (tasks.isEmpty()) {
             emptyStateContainer.setVisible(true);
             scrollPane.setVisible(false);
-        } else{
+        } else {
             emptyStateContainer.setVisible(false);
             scrollPane.setVisible(true);
-            for(Task task:tasks){
+            for (Task task : tasks) {
                 TaskCard card = new TaskCard(task, this::loadTasks);
                 tasksContainer.getChildren().add(card);
             }

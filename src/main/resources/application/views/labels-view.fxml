@@ -56,7 +56,7 @@
                     </VBox.margin>
                 </Label>
 
-                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="task-scroll-pane" VBox.vgrow="ALWAYS">
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
                     <content>
                         <FlowPane fx:id="labelsFlowPane" hgap="15.0" vgap="15.0">
                             <padding>

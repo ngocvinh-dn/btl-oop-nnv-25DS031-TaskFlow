@@ -36,7 +36,7 @@ public class TaskService {
         int userId = getCurrentUserId();
         boolean newStatus = !task.isCompleted();
         boolean success = taskDAO.toggleTaskStatus(task.getId(), newStatus, userId);
-        if(success) {
+        if (success) {
             task.setCompleted(newStatus);
             task.setCompletedAt(newStatus ? LocalDateTime.now() : null);
         }
@@ -125,32 +125,35 @@ public class TaskService {
     }
 
     public boolean addRecurrentTasks(Task baseTask, String frequency, LocalDate untilDate, List<DayOfWeek> specificDays) {
-        if(baseTask == null) return false;
+        if (baseTask.getDueDate() == null) return add(baseTask);
 
-        LocalDateTime current = baseTask.getDueDate();
-        boolean success = false;
+        LocalDateTime currentDateTime = baseTask.getDueDate();
+        boolean atLeastOneSuccess = false;
 
-        if("Weekly".equals(frequency) && !specificDays.isEmpty() && specificDays != null) {
-            while(!current.toLocalDate().isAfter(untilDate)){
-                if(specificDays.contains(current.getDayOfWeek())){
-                    success = true;
+        if ("Weekly".equals(frequency) && specificDays != null && !specificDays.isEmpty()) {
+            while (!currentDateTime.toLocalDate().isAfter(untilDate)) {
+                if (specificDays.contains(currentDateTime.getDayOfWeek())) {
+                    if (createAndSaveTask(baseTask, currentDateTime)) {
+                        atLeastOneSuccess = true;
+                    }
                 }
-                current = current.plusDays(1);
+                currentDateTime = currentDateTime.plusDays(1);
             }
-        } else {
-            while(!current.toLocalDate().isAfter(untilDate)){
-                if(createAndSaveTask(baseTask, current)){
-                    success = true;
+        }
+        else {
+            while (!currentDateTime.toLocalDate().isAfter(untilDate)) {
+                if (createAndSaveTask(baseTask, currentDateTime)) {
+                    atLeastOneSuccess = true;
                 }
-                switch(frequency) {
-                    case "Daily": current=current.plusDays(1); break;
-                    case "Monthly": current=current.plusMonths(1); break;
-                    default: return success;
+                switch (frequency) {
+                    case "Daily": currentDateTime = currentDateTime.plusDays(1); break;
+                    case "Weekly": currentDateTime = currentDateTime.plusWeeks(1); break;
+                    case "Monthly": currentDateTime = currentDateTime.plusMonths(1); break;
+                    default: return atLeastOneSuccess;
                 }
             }
         }
-
-        return success;
+        return atLeastOneSuccess;
     }
 
     public List<Task> getTasksForSpecificDate(LocalDate date, String statusFilter, String priorityFilter, String sortOrder){

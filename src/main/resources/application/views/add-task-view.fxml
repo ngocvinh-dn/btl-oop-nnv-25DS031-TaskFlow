@@ -18,7 +18,7 @@
         <VBox spacing="8.0">
             <children>
                 <Label styleClass="form-label" text="Description" />
-                <TextArea fx:id="txtDescription" prefHeight="80.0" prefWidth="200.0" promptText="Enter details here..." wrapText="true" />
+                <TextArea styleClass="text-area" fx:id="txtDescription" prefHeight="80.0" prefWidth="200.0" promptText="Enter details here..." wrapText="true" />
             </children>
         </VBox>
         <VBox prefHeight="143.0" prefWidth="440.0" spacing="20.0">
@@ -29,17 +29,17 @@
                         <VBox prefHeight="59.0" spacing="8.0">
                             <children>
                                 <Label styleClass="form-label" text="Due Date Time" />
-                                <DatePicker fx:id="dpDueDate" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="280.0" promptText="dd/mm/yyyy" />
+                                <DatePicker styleClass="date-picker" fx:id="dpDueDate" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="280.0" promptText="dd/mm/yyyy" />
                             </children>
                         </VBox>
                         <HBox spacing="5.0">
                             <children>
-                                <Spinner fx:id="spHour" editable="true" prefWidth="67.0" styleClass="time-spinner" />
+                                <Spinner fx:id="spHour" editable="true" prefWidth="67.0" styleClass="spinner" />
                                 <Label style="-fx-font-weight: bold; -fx-text-fill: #888;" text=":">
                                     <HBox.margin>
                                         <Insets top="10.0" />
                                     </HBox.margin></Label>
-                                <Spinner fx:id="spMinute" editable="true" prefWidth="65.0" styleClass="time-spinner" />
+                                <Spinner fx:id="spMinute" editable="true" prefWidth="65.0" styleClass="spinner" />
                             </children>
                             <HBox.margin>
                                 <Insets top="26.0" />
@@ -51,15 +51,15 @@
                 <VBox prefWidth="140.0" spacing="8.0">
                     <children>
                         <Label styleClass="form-label" text="Priority" />
-                        <ComboBox fx:id="cbPriority" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="138.0" />
+                        <ComboBox fx:id="cbPriority" maxWidth="1.7976931348623157E308" prefHeight="33.0" prefWidth="138.0" styleClass="combo-box" />
                     </children>
                 </VBox>
             </children>
         </VBox>
 
-        <VBox spacing="10.0" style="-fx-background-color: #F5F5F5; -fx-padding: 10; -fx-background-radius: 5;">
+        <VBox styleClass="recurrence-pane">
             <children>
-                <CheckBox fx:id="chkRecurrence" text="Repeat this task?" style="-fx-font-weight: bold; -fx-text-fill: #555;" />
+                <CheckBox styleClass="recurrence-checkbox" fx:id="chkRecurrence" text="Repeat this task?" style="-fx-font-weight: bold; -fx-text-fill: #555;" />
 
                 <HBox fx:id="boxRecurrenceOptions" spacing="15.0" alignment="CENTER_LEFT" visible="false" managed="false">
                     <children>
@@ -76,13 +76,13 @@
                         <Insets top="5.0" left="5.0"/>
                     </padding>
                     <children>
-                        <CheckBox fx:id="chkMon" text="Mo" style="-fx-font-size: 11px;" />
-                        <CheckBox fx:id="chkTue" text="Tu" style="-fx-font-size: 11px;" />
-                        <CheckBox fx:id="chkWed" text="We" style="-fx-font-size: 11px;" />
-                        <CheckBox fx:id="chkThu" text="Th" style="-fx-font-size: 11px;" />
-                        <CheckBox fx:id="chkFri" text="Fr" style="-fx-font-size: 11px;" />
-                        <CheckBox fx:id="chkSat" text="Sa" style="-fx-font-size: 11px;" />
-                        <CheckBox fx:id="chkSun" text="Su" style="-fx-font-size: 11px;" />
+                        <CheckBox fx:id="chkMon" text="Mo" styleClass="day-checkbox" />
+                        <CheckBox fx:id="chkTue" text="Tu" styleClass="day-checkbox" />
+                        <CheckBox fx:id="chkWed" text="We" styleClass="day-checkbox" />
+                        <CheckBox fx:id="chkThu" text="Th" styleClass="day-checkbox" />
+                        <CheckBox fx:id="chkFri" text="Fr" styleClass="day-checkbox" />
+                        <CheckBox fx:id="chkSat" text="Sa" styleClass="day-checkbox" />
+                        <CheckBox fx:id="chkSun" text="Su" styleClass="day-checkbox" />
                     </children>
                 </HBox>
             </children>
