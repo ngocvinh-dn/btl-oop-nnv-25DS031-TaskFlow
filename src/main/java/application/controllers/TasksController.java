@@ -29,7 +29,7 @@ public class TasksController implements Initializable {
     @FXML private Button btnAdd;
 
     private final TaskService taskService = new TaskService();
-    private String currentTimeFilter = "All tasks";
+    private String currentTimeFilter = "Today";
     private String currentStatusFilter ="All";
 
     @FXML

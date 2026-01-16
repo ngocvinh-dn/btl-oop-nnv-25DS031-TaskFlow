@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane minHeight="600.0" minWidth="900.0" styleClass="root-pane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.MainController">
+<StackPane prefHeight="600.0" prefWidth="900.0" styleClass="root-pane" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.MainController">
     <children>
 
         <BorderPane minHeight="580.0" minWidth="880.0" styleClass="app-container">

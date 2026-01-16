@@ -29,7 +29,7 @@
                         <Insets bottom="10.0" left="35.0" right="35.0" />
                     </padding>
                     <children>
-                        <ToggleButton fx:id="tabAll" selected="true" styleClass="time-tab" text="All tasks">
+                        <ToggleButton fx:id="tabAll" styleClass="time-tab" text="All tasks">
                             <toggleGroup>
                                 <ToggleGroup fx:id="timeGroup" />
                             </toggleGroup>
@@ -37,7 +37,7 @@
                                 <Region styleClass="icon-list" />
                             </graphic>
                         </ToggleButton>
-                        <ToggleButton fx:id="tabToday" styleClass="time-tab" text="Today" toggleGroup="$timeGroup">
+                        <ToggleButton fx:id="tabToday" styleClass="time-tab" text="Today" toggleGroup="$timeGroup" selected="true">
                             <graphic>
                                 <Region styleClass="icon-calendar-day" />
                             </graphic>
