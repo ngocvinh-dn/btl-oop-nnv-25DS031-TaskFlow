@@ -70,7 +70,7 @@ public class AddTaskController implements Initializable {
 
         cbRecurrence.valueProperty().addListener((ov, oldValue, newValue) -> {
             updateRecurrenceEndDate(newValue);
-            boolean isWeekly = "Weeky".equals(newValue);
+            boolean isWeekly = "Weekly".equals(newValue);
             boxWeekDays.setVisible(isWeekly);
             boxWeekDays.setManaged(isWeekly);
         });
