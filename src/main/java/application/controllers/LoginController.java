@@ -82,25 +82,27 @@ public class LoginController {
             } else {
                 CredentialStore.clearCredentials();
             }
-        }
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/views/main-view.fxml"));
-            Parent root = loader.load();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/views/main-view.fxml"));
+                Parent root = loader.load();
 
-            Stage stage = (Stage) loginButton.getScene().getWindow();
+                Stage stage = (Stage) loginButton.getScene().getWindow();
 
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
 
-            stage.centerOnScreen();
-            stage.setResizable(true);
-            stage.setTitle("Task Flow");
-            stage.show();
+                stage.centerOnScreen();
+                stage.setResizable(true);
+                stage.setTitle("Task Flow");
+                stage.show();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "System Error", "Could not load Main View: " + e.getMessage());
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "System Error", "Could not load Main View: " + e.getMessage());
+            }
+        } else {
+            showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid Username or Password.");
         }
     }
 
